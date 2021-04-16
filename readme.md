@@ -1,10 +1,12 @@
-# Validieren einer VdS UE Konfiguration
+# Validieren einer VdS ÜE Konfiguration
 
-Das Format wird mit der XML Schema Datei ueconfig.xsd validiert
+Eine VdS ÜE XML-Konfiguration wird mit der XML Schema Datei ueconfig.xsd validiert.
+Dabei werden die korrekte Formatierung sowie einzelne Werte der Elemente geprüft. 
+Die aktuelle kann vom VdS Shop (https://shop.vds.de) heruntergeladen werden.
 
-# Erstellen der Java Klassen
+# Erstellen der Java Klassen (com.vds.ueconfig)
 
-Nach einer Änderung des Schemas müssen jedesmal die Klassen neu erstellt werden.
+Nach einer Änderung des Schemas müssen jedes Mal diese Klassen neu erstellt werden.
 
 ## Mit IntelliJ
 
@@ -24,7 +26,7 @@ In der Klasse com/vds/Main befindet sich der Bespielcode.
 
 `javac -cp .\src -d out src\com\vds\Main.java`
 
-Im Directoy out werden die kompilierten Klassen abgelegt
+Im Directory out werden die kompilierten Klassen abgelegt
 
 ## Zum Validieren einer Konfig mit dem Namen ueconfig.xml
 
@@ -47,7 +49,7 @@ ueconfig.xsd.xml. Diese Datei wurde mit IntelliJ ab dem Schema erstellt.
 
 Tools -> XML Actions -> Generate XML Document from XSD Schema...
 
-Es wird eine schemakonforme Beispieldatei erstellt. 
+Es wird eine schema konforme Beispieldatei erstellt. 
 
 ---
 

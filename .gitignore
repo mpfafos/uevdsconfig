@@ -1,5 +1,6 @@
 .idea
 *.iml
-bsp/*
+bsp/T*.xml
+bsb/S*.xml
 out
 src/com/vds/ueconfig

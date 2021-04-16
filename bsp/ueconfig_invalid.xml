@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fa. TAS BHE/VdS-XML Beispiel 1 - Request
+==============================================================
+Szenario
+Dieses Beispiel beschreibt eine Konfigurationsänderung eines in Betrieb befindlichen ÜEs mit neuen NSL-Konfigurationsparametern.
+Die Verbindung zwischen Funktionsblock und ÜE erfolgt indirekt über einen herstellerspezifischen Rendezvous-Server.
+
+NSL-Ziele
+1. Ziel
+	- 1. Weg
+	- NSL-ID	= 123456
+	- INIT-Key	= 01234567-01234567-01234567-01234567-01234567-01234567-01234567-01234567
+	- stehend
+	- Proktoll		= VdS SecurIP
+	- IP-Adressen
+		Primär		= 80.153.20.227:56000
+		Alternativ1	= 80.153.20.227:56001
+	- Routine alle 24h (=1440 min)	
+
+2. Ziel
+	- 2. Weg
+	- NSL-ID	= 123456
+	- INIT-Key	= 01234567-01234567-01234567-01234567-01234567-01234567-01234567-01234567
+	- bedarfsgesteuert
+	- Proktoll		= VdS SecurIP
+	- IP-Adressen
+		Primär		= 80.153.20.227:56000
+	- Routine alle 6h (=360 min)
+
+Session Informationen
+- UUID = 2465454565664564534
+- Herstellerspez. Verbindung (TAS)
+	- Indirekte Verbindung Fkt.-Block <-> ÜE über Rendezvous-Server
+- Zugangsebene 3
+- Rendezvous-Server
+	- remoteserver1.de:50001 (Primär)
+	- remoteserver2.de:50002 (Alternativ)
+	- Fkt.-Block Anmeldeinformationen
+		- Username	= User
+		- Password	= abc123
+		- Key		= 01234567
+		- ÜE Ident	= 123456 
+-->
+
+			
+			<root>
+				<Version>
+					<Major>1</Major>
+					<Minor>0</Minor>
+					<Timestamp>2020-03-05T07:19:43+02:00</Timestamp>
+				</Version>
+				
+				<Session>
+					<UUID>2465454565664564534</UUID>
+					<CommunicationStatu>1</CommunicationStatu>					<!-- 1 = Request MGM -> FktBlock -->
+					<ConnectionType>10</ConnectionType>								<!-- 10= herstellerspezifisch, entspricht TAS Remote-Server Vb. -->
+					<Manufacturer>80H</Manufacturer>								<!-- 80H = TAS -->
+					<Destination> 													<!-- Alternativ Remote Verbindung -->
+						<Index>1</Index> 											<!-- Verbindungsindex -->
+						<ProtocolType>1</ProtocolType>
+						<Identificator>123456</Identificator> 						<!-- Remote ÜE-ID -->
+						<DestinationName>Ziel123456</DestinationName>				<!-- Zielname ergänzt 30.09.2020-->
+						<Target>
+							<TargetPriority>1</TargetPriority>					<!-- Ziel-Prio -->
+							<TargetAddress>remoteserver1.de</TargetAddress>		<!-- Ziel-Adresse Remote Server -->
+							<TargetPort>50001</TargetPort>						<!-- Ziel-Port Remote Server -->
+							<CredentialIndex>1</CredentialIndex>				<!-- Remote-Server Anmeldedaten -->
+						</Target>
+						<Target>
+							<TargetPriority>2</TargetPriority>					<!-- Ziel-Prio -->
+							<TargetAddress>remoteserver2.de</TargetAddress>		<!-- Ziel-Adresse Remote Server -->
+							<TargetPort>50002</TargetPort>						<!-- Ziel-Port Remote Server -->
+							<CredentialIndex>1</CredentialIndex>				<!-- Remote-Server Anmeldedaten -->
+						</Target>
+						<ConnectionType>1</ConnectionType>							<!-- 1=stehend , 2=bedarfsgesteuert, 3=alternativ stehend -->
+					</Destination>
+					<CredentialIndex>2</CredentialIndex>							<!-- ÜE-Passwort -->
+					<AccessPermissionLevel>3</AccessPermissionLevel>				<!-- User Berechtigungslevel ZE3 -->
+					<AccessType>5</AccessType>										<!-- 5 = Konfiguration empfangen, ändern und senden -->
+					<FilePath></FilePath>
+				</Session>
+				
+				<Parameter>
+												
+					<Destination> 													<!-- Primäre NSL Verbindung stehend -->
+						<Index>1</Index> 											<!-- Verbindungsindex -->
+						<ProtocolType>1</ProtocolType>								<!-- 1=VdSSecurIP , 2=VdS2465-S2 -->
+						<Identificator>123456</Identificator> 						<!-- ÜE-ID -->
+<!-- TBD , Example -->	<DestinationName>Ziel123456</DestinationName>				<!-- Zielname ergänzt 30.09.2020-->
+						<PathType>1</PathType>											<!-- 1=Erstweg , 2=Zweitweg -->
+						<Target>
+							<TargetPriority>1</TargetPriority>						<!-- Ziel-Prio -->
+							<TargetAddress>80.153.20.227</TargetAddress>			<!-- Ziel-Adresse NSL -->
+							<TargetPort>56000</TargetPort>							<!-- Ziel-Port NSL -->
+							<CredentialIndex>4</CredentialIndex>					<!-- (Init)-Schlüssel -->
+						</Target>
+						<Target>
+							<TargetPriority>2</TargetPriority>						<!-- Ziel-Prio -->
+							<TargetAddress>80.153.20.227</TargetAddress>			<!-- Ziel-Adresse NSL -->
+							<TargetPort>56001</TargetPort>							<!-- Ziel-Port NSL -->
+							<CredentialIndex>4</CredentialIndex>					<!-- (Init)-Schlüssel -->
+						</Target>
+						<ConnectionType>1</ConnectionType>							<!-- 1=stehend , 2=bedarfsgesteuert, 3=alternativ stehend -->
+<!-- TBD , Example -->	<Routine>													<!-- Ziel 1 Erstweg Routine -->
+							<RoutineType>1</RoutineType>							<!-- 1=Intervall in Minuten -->
+							<Interval>1440</Interval>
+						</Routine>
+					</Destination>	
+					
+					<Destination> 													<!-- Sekundäre NSL Verbindung, Mobile Redundante NSL Verbindung bedarfsg.-->
+						<Index>2</Index>
+						<ProtocolType>1</ProtocolType>
+						<Identificator>123456</Identificator>
+<!-- TBD , Example -->	<DestinationName>Ziel123456</DestinationName>				<!-- Zielname ergänzt 30.09.2020-->
+						<PathType>2</PathType>
+						<Target>
+							<TargetPriority>1</TargetPriority>						<!-- Ziel-Prio -->
+							<TargetAddress>80.153.20.227</TargetAddress>			<!-- Ziel-Adresse NSL -->
+							<TargetPort>56000</TargetPort>							<!-- Ziel-Port NSL -->
+							<CredentialIndex>4</CredentialIndex>					<!-- (Init)-Schlüssel -->
+						</Target>
+						<ConnectionType>2</ConnectionType>
+						<!-- TBD , Example -->	<Routine>													<!-- Ziel 2 Zweitweg Routine -->
+							<RoutineType>1</RoutineType>							<!-- 1=Intervall in Minuten -->
+							<Interval>360</Interval>
+						</Routine>
+						
+					</Destination>			
+					
+					<DestinationCategory>14</DestinationCategory>					<!-- 14=DP4, AÜA-Kategorie -->
+
+					<!-- herstellerspezifischer Inhalt -->
+					<Custom></Custom>
+
+					<SystemReport>
+						<TargetFaultReporting>1</TargetFaultReporting>
+						<FaultDelayEPS>5</FaultDelayEPS>
+						<FaultDelayAPS>5</FaultDelayAPS>
+						<FaultDelayPath>1</FaultDelayPath>
+					</SystemReport>
+
+
+					<Info>															<!--Allg. Objektinformationen -->
+						<ObjectName1>Name Zeile 1</ObjectName1>
+						<ObjectName2>Name Zeile 2</ObjectName2>
+						<ObjectDescription>Mustermann Automobile GmbH</ObjectDescription>
+						<Street>Neustrasse</Street>
+						<StreetNumber>1234</StreetNumber>
+						<Zipcode>54321</Zipcode>
+						<Town>Neustadt</Town>
+						<Country>Germany</Country>
+						<PhoneNb>02166/858-0</PhoneNb>
+						<FaxNb>02166/858-150</FaxNb>
+						<MobileNb>0177-12345678</MobileNb>
+						<Email>tas@tas.de</Email>
+						<ObjectReference1>Kd.-Nr: ABC-1234</ObjectReference1>
+						<ObjectReference2>Vertrags.-Nr: 1234-ABC</ObjectReference2>
+					</Info>
+
+
+				</Parameter>
+
+				<Credential>													<!-- Remote Anmeldedaten -->
+					<Index>1</Index>
+					<Username>User</Username>
+					<Password>abc123</Password>
+					<EncKey>01234567</EncKey>
+				</Credential>
+
+				<Credential>													<!-- ÜE Passwort -->
+					<Index>2</Index>
+					<Password>abc123</Password>
+				</Credential>
+
+				<Credential>													<!-- NSL INIT-Key -->
+					<Index>4</Index>
+					<EncKey>01234567-01234567-01234567-01234567-01234567-01234567-01234567-01234567</EncKey>
+				</Credential>				
+		</root>
+
