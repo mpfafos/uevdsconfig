@@ -53,5 +53,3 @@ Es wird eine schema konforme Beispieldatei erstellt.
 
 ---
 
-Author: Martin Pfander
-Firma: Sitasys AG
