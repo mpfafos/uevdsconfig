@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Version"/>
+				<xs:element ref="Session"/>
+				<xs:element minOccurs="0" ref="Parameter"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="Credential"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Version">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Major"/>
+				<xs:element ref="Minor"/>
+				<xs:element ref="Timestamp"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Major" type="xs:unsignedShort"/>
+	<xs:element name="Minor" type="xs:unsignedShort"/>
+	<xs:element name="Timestamp" type="xs:dateTime"/>
+	<xs:element name="Session">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="UUID"/>
+				<xs:element ref="CommunicationStatus"/>
+				<xs:element ref="ConnectionType"/>
+				<xs:element ref="Manufacturer"/>
+				<xs:element minOccurs="0" ref="Destination"/>
+				<xs:element minOccurs="0" ref="CredentialIndex"/>
+				<xs:element minOccurs="0" ref="AccessPermissionLevel"/>
+				<xs:element minOccurs="0" ref="AccessType"/>
+				<xs:element minOccurs="0" ref="FilePath"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UUID" type="string36"/>
+	<xs:element name="CommunicationStatus" type="xs:unsignedByte"/>
+	<xs:element name="Manufacturer" type="xs:string"/>
+	<xs:element name="AccessType" type="xs:integer"/>
+	<xs:element name="AccessPermissionLevel" type="xs:integer"/>
+	<xs:element name="FilePath" type="string255"/>
+	<xs:element name="Parameter">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="ConfigurationTemplate"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="Interface"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="Destination"/>
+				<xs:element minOccurs="0" ref="DestinationCategory"/>
+				<xs:element minOccurs="0" ref="Custom"/>
+				<xs:element minOccurs="0" ref="SystemReport"/>
+				<xs:element minOccurs="0" ref="Info"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConfigurationTemplate" type="string255"/>
+	<xs:element name="Interface">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Index"/>
+				<xs:element ref="Type"/>
+				<xs:element ref="PathType"/>
+				<xs:choice>
+					<xs:element ref="Ethernet"/>
+					<xs:element ref="Mobile"/>
+					<xs:element ref="Router"/>
+				</xs:choice>
+				<xs:element minOccurs="0" ref="DHCP"/>
+				<xs:element minOccurs="0" ref="IPAddress"/>
+				<xs:element minOccurs="0" ref="Subnetmask"/>
+				<xs:element minOccurs="0" ref="Gateway"/>
+				<xs:element minOccurs="0" ref="DNSServer1"/>
+				<xs:element minOccurs="0" ref="DNSServer2"/>
+				<xs:element minOccurs="0" ref="Hostname"/>
+				<xs:element minOccurs="0" ref="VLANID"/>
+				<xs:element minOccurs="0" ref="CredentialIndex"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Type" type="xs:unsignedByte"/>
+	<xs:element name="Ethernet"/>
+	<xs:element name="Mobile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PIN"/>
+				<xs:element minOccurs="0" ref="PUK"/>
+				<xs:element ref="APN"/>
+				<xs:element ref="ProviderSelection"/>
+				<xs:element minOccurs="0" ref="MCC"/>
+				<xs:element minOccurs="0" ref="MNC"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PIN" type="string16"/>
+	<xs:element name="PUK" type="string16"/>
+	<xs:element name="APN" type="string255"/>
+	<xs:element name="ProviderSelection" type="xs:unsignedByte"/>
+	<xs:element name="MCC" type="xs:unsignedShort"/>
+	<xs:element name="MNC" type="xs:unsignedByte"/>
+	<xs:element name="DHCP" type="xs:unsignedByte"/>
+	<xs:element name="IPAddress" type="string63"/>
+	<xs:element name="Subnetmask" type="string63"/>
+	<xs:element name="Gateway" type="string63"/>
+	<xs:element name="DNSServer1" type="string63"/>
+	<xs:element name="DNSServer2" type="string63"/>
+	<xs:element name="Hostname" type="string63"/>
+	<xs:element name="VLANID" type="xs:unsignedShort"/>
+	<xs:element name="Router">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="VCI"/>
+				<xs:element ref="VPI"/>
+				<xs:element ref="AnnexType"/>
+				<xs:element ref="ATMEncapsulation"/>
+				<xs:element ref="PhysType"/>
+				<xs:element ref="DSLProtocol"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VCI" type="xs:unsignedShort"/>
+	<xs:element name="VPI" type="xs:unsignedShort"/>
+	<xs:element name="AnnexType" type="xs:NCName"/>
+	<xs:element name="ATMEncapsulation" type="xs:unsignedByte"/>
+	<xs:element name="PhysType" type="xs:unsignedByte"/>
+	<xs:element name="DSLProtocol" type="xs:unsignedByte"/>
+	<xs:element name="DestinationCategory" type="xs:unsignedByte"/>
+	<xs:element name="SystemReport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TargetFaultReporting"/>
+				<xs:element ref="SystemFaultReporting"/>
+				<xs:element minOccurs="0" ref="FaultDelayEPS"/>
+				<xs:element minOccurs="0" ref="FaultDelayAPS"/>
+				<xs:element minOccurs="0" ref="FaultDelayPath"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TargetFaultReporting" type="xs:unsignedByte"/>
+	<xs:element name="SystemFaultReporting" type="xs:unsignedByte"/>
+	<xs:element name="FaultDelayEPS" type="xs:unsignedShort"/>
+	<xs:element name="FaultDelayAPS" type="xs:unsignedShort"/>
+	<xs:element name="FaultDelayPath" type="xs:unsignedShort"/>
+	<xs:element name="Info">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ObjectName1"/>
+				<xs:element ref="ObjectName2"/>
+				<xs:element ref="ObjectDescription"/>
+				<xs:element ref="Street"/>
+				<xs:element ref="StreetNumber"/>
+				<xs:element ref="Zipcode"/>
+				<xs:element ref="Town"/>
+				<xs:element ref="Country"/>
+				<xs:element ref="PhoneNumber"/>
+				<xs:element ref="FaxNumber"/>
+				<xs:element ref="MobileNumber"/>
+				<xs:element ref="Email"/>
+				<xs:element ref="ObjectReference1"/>
+				<xs:element ref="ObjectReference2"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ObjectName1" type="string255"/>
+	<xs:element name="ObjectName2" type="string255"/>
+	<xs:element name="ObjectDescription" type="string255"/>
+	<xs:element name="Street" type="string255"/>
+	<xs:element name="StreetNumber" type="string255"/>
+	<xs:element name="Zipcode" type="string255"/>
+	<xs:element name="Town" type="string255"/>
+	<xs:element name="Country" type="string255"/>
+	<xs:element name="PhoneNumber" type="string255"/>
+	<xs:element name="FaxNumber" type="string255"/>
+	<xs:element name="MobileNumber" type="string255"/>
+	<xs:element name="Email" type="string255"/>
+	<xs:element name="ObjectReference1" type="string255"/>
+	<xs:element name="ObjectReference2" type="string255"/>
+	<xs:element name="Custom">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Credential">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Index"/>
+				<xs:element minOccurs="0" ref="Username"/>
+				<xs:element minOccurs="0" ref="Password"/>
+				<xs:choice minOccurs="0">
+					<xs:element ref="EncKey"/>
+					<xs:element ref="Method"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Username" type="string255"/>
+	<xs:element name="Password" type="string255"/>
+	<xs:element name="EncKey" type="string255"/>
+	<xs:element name="Method" type="xs:unsignedByte"/>
+	<xs:element name="ConnectionType" type="xs:unsignedByte"/>
+	<xs:element name="CredentialIndex" type="xs:unsignedByte"/>
+	<xs:element name="Destination">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Index"/>
+				<xs:element ref="ProtocolType"/>
+				<xs:element minOccurs="0" ref="Identificator"/>
+				<xs:element minOccurs="0" ref="DestinationName"/>
+				<xs:element minOccurs="0" ref="PathType"/>
+				<xs:element maxOccurs="unbounded" ref="Target"/>
+				<xs:element minOccurs="0" ref="ConnectionType"/>
+				<xs:element minOccurs="0" ref="Routine"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProtocolType" type="xs:unsignedByte"/>
+	<xs:element name="Identificator" type="string31"/>
+	<xs:element name="DestinationName" type="string255"/>
+	<xs:element name="Target">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" ref="InterfaceIndex"/>
+				<xs:element minOccurs="0" ref="TargetName"/>
+				<xs:element ref="TargetPriority"/>
+				<xs:element ref="TargetAddress"/>
+				<xs:element ref="TargetPort"/>
+				<xs:element minOccurs="0" ref="CredentialIndex"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InterfaceIndex" type="xs:unsignedByte"/>
+	<xs:element name="TargetName" type="string255"/>
+	<xs:element name="TargetPriority" type="xs:unsignedByte"/>
+	<xs:element name="TargetAddress" type="string63"/>
+	<xs:element name="TargetPort" type="xs:unsignedShort"/>
+	<xs:element name="Routine">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RoutineType"/>
+				<xs:element ref="Interval"/>
+				<xs:element minOccurs="0" ref="StartTime"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RoutineType" type="xs:unsignedByte"/>
+	<xs:element name="Interval" type="xs:unsignedShort"/>
+	<xs:element name="StartTime" type="xs:time"/>
+	<xs:element name="Index" type="xs:unsignedByte"/>
+	<xs:element name="PathType" type="xs:unsignedByte"/>
+	<xs:simpleType name="string16">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string31">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string36">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="36"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string63">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string255">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

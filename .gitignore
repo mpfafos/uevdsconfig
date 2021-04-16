@@ -1,0 +1,5 @@
+.idea
+*.iml
+bsp/*
+out
+src/com/vds/ueconfig
